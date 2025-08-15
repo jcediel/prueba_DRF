@@ -48,6 +48,14 @@
         "documentation": {}
     },
     {
+        "label": "transaction",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "admin",
         "importPath": "django.contrib",
         "description": "django.contrib",
@@ -289,6 +297,14 @@
         "documentation": {}
     },
     {
+        "label": "config",
+        "importPath": "decouple",
+        "description": "decouple",
+        "isExtraImport": true,
+        "detail": "decouple",
+        "documentation": {}
+    },
+    {
         "label": "get_wsgi_application",
         "importPath": "django.core.wsgi",
         "description": "django.core.wsgi",
@@ -354,6 +370,22 @@
         "description": "django.conf",
         "isExtraImport": true,
         "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "Decimal",
+        "importPath": "decimal",
+        "description": "decimal",
+        "isExtraImport": true,
+        "detail": "decimal",
+        "documentation": {}
+    },
+    {
+        "label": "Decimal",
+        "importPath": "decimal",
+        "description": "decimal",
+        "isExtraImport": true,
+        "detail": "decimal",
         "documentation": {}
     },
     {
@@ -490,7 +522,7 @@
         "kind": 5,
         "importPath": "library.settings",
         "description": "library.settings",
-        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = \"django-insecure-tlp=hh=_$6rjw@t2f72+&pi3o8m776ynxnte430l2%1-czv2e0\"\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = config(\"SECRET_KEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = config(\"DEBUG\", cast=bool)\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [",
         "detail": "library.settings",
         "documentation": {}
     },
@@ -499,7 +531,7 @@
         "kind": 5,
         "importPath": "library.settings",
         "description": "library.settings",
-        "peekOfCode": "SECRET_KEY = \"django-insecure-tlp=hh=_$6rjw@t2f72+&pi3o8m776ynxnte430l2%1-czv2e0\"\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",",
+        "peekOfCode": "SECRET_KEY = config(\"SECRET_KEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = config(\"DEBUG\", cast=bool)\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",",
         "detail": "library.settings",
         "documentation": {}
     },
@@ -508,7 +540,7 @@
         "kind": 5,
         "importPath": "library.settings",
         "description": "library.settings",
-        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",\n    \"django.contrib.messages\",\n    \"django.contrib.staticfiles\",",
+        "peekOfCode": "DEBUG = config(\"DEBUG\", cast=bool)\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",\n    \"django.contrib.messages\",\n    \"django.contrib.staticfiles\",",
         "detail": "library.settings",
         "documentation": {}
     },
@@ -562,7 +594,7 @@
         "kind": 5,
         "importPath": "library.settings",
         "description": "library.settings",
-        "peekOfCode": "WSGI_APPLICATION = \"library.wsgi.application\"\n# Database\n# https://docs.djangoproject.com/en/5.1/ref/settings/#databases\nDATABASES = {\n    \"default\": {\n        \"ENGINE\": \"django.db.backends.mysql\",\n        \"NAME\": \"library\",\n        \"USER\": \"root\",\n        \"PASSWORD\": \"900515t3m45*\",\n        \"HOST\": \"localhost\",",
+        "peekOfCode": "WSGI_APPLICATION = \"library.wsgi.application\"\n# Database\n# https://docs.djangoproject.com/en/5.1/ref/settings/#databases\nDATABASES = {\n    \"default\": {\n        \"ENGINE\": \"django.db.backends.mysql\",\n        \"NAME\": config(\"DB_NAME\"),\n        \"USER\": config(\"DB_USER\"),\n        \"PASSWORD\": config(\"DB_PASSWORD\"),\n        \"HOST\": config(\"DB_HOST\"),",
         "detail": "library.settings",
         "documentation": {}
     },
@@ -571,7 +603,7 @@
         "kind": 5,
         "importPath": "library.settings",
         "description": "library.settings",
-        "peekOfCode": "DATABASES = {\n    \"default\": {\n        \"ENGINE\": \"django.db.backends.mysql\",\n        \"NAME\": \"library\",\n        \"USER\": \"root\",\n        \"PASSWORD\": \"900515t3m45*\",\n        \"HOST\": \"localhost\",\n        \"PORT\": \"3306\",\n    }\n}",
+        "peekOfCode": "DATABASES = {\n    \"default\": {\n        \"ENGINE\": \"django.db.backends.mysql\",\n        \"NAME\": config(\"DB_NAME\"),\n        \"USER\": config(\"DB_USER\"),\n        \"PASSWORD\": config(\"DB_PASSWORD\"),\n        \"HOST\": config(\"DB_HOST\"),\n        \"PORT\": config(\"DB_PORT\"),\n    }\n}",
         "detail": "library.settings",
         "documentation": {}
     },
@@ -711,6 +743,33 @@
         "documentation": {}
     },
     {
+        "label": "Reservation",
+        "kind": 6,
+        "importPath": "prestamos.models",
+        "description": "prestamos.models",
+        "peekOfCode": "class Reservation(models.Model):\n    class Status(models.TextChoices):\n        PENDING = \"PENDING\", \"Pending\"\n        FULFILLED = \"FULFILLED\", \"Fulfilled\"\n        CANCELLED = \"CANCELLED\", \"Cancelled\"\n    book = models.ForeignKey(\n        Books, on_delete=models.CASCADE, related_name=\"books_reservated\"\n    )\n    member = models.ForeignKey(\n        Member, on_delete=models.CASCADE, related_name=\"members_reservated\"",
+        "detail": "prestamos.models",
+        "documentation": {}
+    },
+    {
+        "label": "Penalty",
+        "kind": 6,
+        "importPath": "prestamos.models",
+        "description": "prestamos.models",
+        "peekOfCode": "class Penalty(models.Model):\n    class Status(models.TextChoices):\n        PENDING = \"PENDING\", \"Pending\"\n        PAID = \"PAID\", \"Paid\"\n        CANCELLED = \"CANCELLED\", \"Cancelled\"\n    loan = models.ForeignKey(Loan, on_delete=models.CASCADE)\n    rate_per_day = models.DecimalField(max_digits=5, decimal_places=2, default=20.00)\n    days_late = models.IntegerField()\n    amount_cached = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)\n    status = models.CharField(",
+        "detail": "prestamos.models",
+        "documentation": {}
+    },
+    {
+        "label": "Payment",
+        "kind": 6,
+        "importPath": "prestamos.models",
+        "description": "prestamos.models",
+        "peekOfCode": "class Payment(models.Model):\n    member = models.ForeignKey(Member, on_delete=models.CASCADE)\n    amount = models.DecimalField(max_digits=5, decimal_places=2)\n    paid_at = models.DateTimeField(auto_now_add=True)\n    external_ref = models.CharField(max_length=20, unique=True)\n    penalty = models.ForeignKey(Penalty, on_delete=models.CASCADE)\n    def __str__(self):\n        return f\"{self.member} - {self.amount}\"",
+        "detail": "prestamos.models",
+        "documentation": {}
+    },
+    {
         "label": "IsStaffOrBasic",
         "kind": 6,
         "importPath": "prestamos.permissions",
@@ -747,11 +806,47 @@
         "documentation": {}
     },
     {
+        "label": "ReservationSerializer",
+        "kind": 6,
+        "importPath": "prestamos.serializers",
+        "description": "prestamos.serializers",
+        "peekOfCode": "class ReservationSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Reservation\n        fields = [\"id\", \"book\", \"member\", \"status\", \"created_at\"]\n        read_only_fields = [\"created_at\", \"status\"]\n    def validate(self, data):\n        member = data.get(\"member\") or self.instance.member\n        book = data.get(\"book\") or self.instance.book\n        has_active_loan = Loan.objects.filter(\n            member=member, book=book, returned_at__isnull=True",
+        "detail": "prestamos.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "ReservationCancelSerializer",
+        "kind": 6,
+        "importPath": "prestamos.serializers",
+        "description": "prestamos.serializers",
+        "peekOfCode": "class ReservationCancelSerializer(serializers.ModelSerializer):\n    confirm = serializers.BooleanField(default=True)\n    def save(self, **kwargs):\n        reservation: Reservation = self.context[\"reservation\"]\n        if reservation.status != Reservation.Status.PENDING:\n            raise serializers.ValidationError(\"La reserva no esta pendiente\")\n        reservation.status = Reservation.Status.CANCELLED\n        reservation.save(update_fields=[\"status\"])\n        return reservation\nclass PenaltySerializer(serializers.ModelSerializer):",
+        "detail": "prestamos.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "PenaltySerializer",
+        "kind": 6,
+        "importPath": "prestamos.serializers",
+        "description": "prestamos.serializers",
+        "peekOfCode": "class PenaltySerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Penalty\n        fields = [\"loan\", \"rate_per_day\", \"days_late\", \"amount_cached\", \"status\"]\nclass PaymentSeralizer(serializers.ModelSerializer):\n    class Meta:\n        model = Payment\n        fields = [\"id\", \"member\", \"amount\", \"paid_at\", \"external_ref\", \"penalty\"]\n        read_only_fields = [\n            \"paid_at\",",
+        "detail": "prestamos.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "PaymentSeralizer",
+        "kind": 6,
+        "importPath": "prestamos.serializers",
+        "description": "prestamos.serializers",
+        "peekOfCode": "class PaymentSeralizer(serializers.ModelSerializer):\n    class Meta:\n        model = Payment\n        fields = [\"id\", \"member\", \"amount\", \"paid_at\", \"external_ref\", \"penalty\"]\n        read_only_fields = [\n            \"paid_at\",\n        ]\n    def validate(self, data):\n        penalty: Penalty = data[\"penalty\"]\n        if penalty.status != Penalty.Status.PENDING:",
+        "detail": "prestamos.serializers",
+        "documentation": {}
+    },
+    {
         "label": "router",
         "kind": 5,
         "importPath": "prestamos.urls",
         "description": "prestamos.urls",
-        "peekOfCode": "router = routers.DefaultRouter()\nrouter.register(r\"loans\", LoanViewSet)\nrouter.register(r\"members\", MembersViewSet)\nurlpatterns = [\n    path(\"\", include(router.urls)),\n]",
+        "peekOfCode": "router = routers.DefaultRouter()\nrouter.register(r\"loans\", LoanViewSet)\nrouter.register(r\"members\", MembersViewSet)\nrouter.register(r\"reservations\", ReservationViewSet)\nurlpatterns = [\n    path(\"\", include(router.urls)),\n]",
         "detail": "prestamos.urls",
         "documentation": {}
     },
@@ -779,6 +874,15 @@
         "importPath": "prestamos.views",
         "description": "prestamos.views",
         "peekOfCode": "class LoanViewSet(viewsets.ModelViewSet):\n    queryset = Loan.objects.all().select_related(\"member\", \"book\")\n    serializer_class = LoanSerializer\n    permission_classes = [IsAuthenticated, IsStaffOrBasic]\n    def get_queryset(self):\n        query_set = Loan.objects.all()\n        member_id = self.request.query_params.get(\"member_id\")\n        book_id = self.request.query_params.get(\"book_id\")\n        active = self.request.query_params.get(\"active\")\n        user = self.request.user",
+        "detail": "prestamos.views",
+        "documentation": {}
+    },
+    {
+        "label": "ReservationViewSet",
+        "kind": 6,
+        "importPath": "prestamos.views",
+        "description": "prestamos.views",
+        "peekOfCode": "class ReservationViewSet(viewsets.ModelViewSet):\n    queryset = Reservation.objects.all()\n    serializer_class = ReservationSerializer\n    permission_classes = [IsAuthenticated, IsStaffOrBasic]",
         "detail": "prestamos.views",
         "documentation": {}
     },

@@ -4,8 +4,13 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from prestamos.permissions import IsStaffOrBasic, IsStaffOrSelfbasic
-from .models import Loan, Member
-from .serializers import LoanSerializer, MemberSerializer
+from .models import Loan, Member, Reservation
+from .serializers import (
+    LoanSerializer,
+    MemberSerializer,
+    ReservationCancelSerializer,
+    ReservationSerializer,
+)
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -69,3 +74,9 @@ class LoanViewSet(viewsets.ModelViewSet):
         loan.returned_at = datetime.now()
         loan.save()
         return Response("prestamo devuelto con exito", status=status.HTTP_200_OK)
+
+
+class ReservationViewSet(viewsets.ModelViewSet):
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationSerializer
+    permission_classes = [IsAuthenticated, IsStaffOrBasic]
