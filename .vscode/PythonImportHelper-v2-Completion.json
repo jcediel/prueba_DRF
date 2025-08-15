@@ -879,7 +879,7 @@
         "kind": 5,
         "importPath": "prestamos.urls",
         "description": "prestamos.urls",
-        "peekOfCode": "router = routers.DefaultRouter()\nrouter.register(r\"loans\", LoanViewSet)\nrouter.register(r\"members\", MembersViewSet)\nrouter.register(r\"reservations\", ReservationViewSet)\nurlpatterns = [\n    path(\"\", include(router.urls)),\n]",
+        "peekOfCode": "router = routers.DefaultRouter()\nrouter.register(r\"loans\", LoanViewSet)\nrouter.register(r\"members\", MembersViewSet)\nrouter.register(r\"reservations\", ReservationViewSet)\nrouter.register(r\"penalty\", PenaltyViewSet)\nurlpatterns = [\n    path(\"\", include(router.urls)),\n]",
         "detail": "prestamos.urls",
         "documentation": {}
     },
@@ -915,7 +915,16 @@
         "kind": 6,
         "importPath": "prestamos.views",
         "description": "prestamos.views",
-        "peekOfCode": "class ReservationViewSet(viewsets.ModelViewSet):\n    queryset = Reservation.objects.all()\n    serializer_class = ReservationSerializer\n    permission_classes = [IsAuthenticated, IsStaffOrBasic]",
+        "peekOfCode": "class ReservationViewSet(viewsets.ModelViewSet):\n    queryset = Reservation.objects.all().select_related(\"member\", \"book\")\n    serializer_class = ReservationSerializer\n    permission_classes = [IsAuthenticated, IsStaffOrBasic]\n    ordering_fields = [\"created_at\"]\n    @action(detail=True, methods=[\"post\"])\n    def cancel(self, request, pk=None):\n        reservation = self.get_object()\n        serializer = ReservationCancelSerializer(\n            data=request.data or {\"confirm\": True}, context={\"reservation\": reservation}",
+        "detail": "prestamos.views",
+        "documentation": {}
+    },
+    {
+        "label": "PenaltyViewSet",
+        "kind": 6,
+        "importPath": "prestamos.views",
+        "description": "prestamos.views",
+        "peekOfCode": "class PenaltyViewSet(viewsets.ModelViewSet):\n    queryset = Penalty.objects.all().select_related(\"loan\", \"loan__member\", \"loan_book\")\n    serializer_class = PenaltySerializer\n    permission_classes = [IsAuthenticated, IsStaffOrBasic]\n    @action(detail=True, methods=[\"post\"])\n    def pay(self, request, pk=None):\n        penalty = self.get_object()\n        serializer = PaymentSeralizer(\n            data=penalty,\n        )",
         "detail": "prestamos.views",
         "documentation": {}
     },

@@ -4,12 +4,14 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from prestamos.permissions import IsStaffOrBasic, IsStaffOrSelfbasic
-from .models import Loan, Member, Reservation
+from .models import Loan, Member, Penalty, Reservation
 from .serializers import (
     LoanSerializer,
     MemberSerializer,
+    PenaltySerializer,
     ReservationCancelSerializer,
     ReservationSerializer,
+    PaymentSeralizer,
 )
 from rest_framework.permissions import IsAuthenticated
 
@@ -77,6 +79,33 @@ class LoanViewSet(viewsets.ModelViewSet):
 
 
 class ReservationViewSet(viewsets.ModelViewSet):
-    queryset = Reservation.objects.all()
+    queryset = Reservation.objects.all().select_related("member", "book")
     serializer_class = ReservationSerializer
     permission_classes = [IsAuthenticated, IsStaffOrBasic]
+    ordering_fields = ["created_at"]
+
+    @action(detail=True, methods=["post"])
+    def cancel(self, request, pk=None):
+        reservation = self.get_object()
+        serializer = ReservationCancelSerializer(
+            data=request.data or {"confirm": True}, context={"reservation": reservation}
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response("Reserva cancelada con exito", status=status.HTTP_200_OK)
+
+
+class PenaltyViewSet(viewsets.ModelViewSet):
+    queryset = Penalty.objects.all().select_related("loan", "loan__member", "loan_book")
+    serializer_class = PenaltySerializer
+    permission_classes = [IsAuthenticated, IsStaffOrBasic]
+
+    @action(detail=True, methods=["post"])
+    def pay(self, request, pk=None):
+        penalty = self.get_object()
+        serializer = PaymentSeralizer(
+            data=penalty,
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response("Penalizacion pagada con exito", status=status.HTTP_200_OK)
