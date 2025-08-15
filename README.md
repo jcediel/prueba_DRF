@@ -17,8 +17,10 @@ python manage.py makemigrations
 (segundo)
 python manage.py migrate
 
-6. Correr el servidor
-python manage.py runserver
+6. Crear superusuario
+python manage.py createsuperuser
 
+7. Correr el servidor
+python manage.py runserver
 
 
