@@ -53,9 +53,9 @@ class LoanViewSet(viewsets.ModelViewSet):
             query_set = query_set.filter(book_id=book_id)
         elif active is not None:
             if active.lower() == "true":
-                queryset = queryset.filter(returned_at__isnull=True)
+                query_set = query_set.filter(returned_at__isnull=True)
             elif active.lower() == "false":
-                queryset = queryset.filter(returned_at__isnull=False)
+                query_set = query_set.filter(returned_at__isnull=False)
 
         return query_set
 

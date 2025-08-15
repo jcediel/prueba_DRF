@@ -23,7 +23,7 @@ class LoanSerializer(serializers.ModelSerializer):
             )
         return value
 
-    def book(self, value):
+    def validate_book(self, value):
         if Loan.objects.filter(book=value, returned_at=None).exists():
             raise serializers.ValidationError("El libro ya esta prestado")
         return value

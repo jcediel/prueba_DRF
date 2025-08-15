@@ -471,6 +471,15 @@
         "documentation": {}
     },
     {
+        "label": "BooksAdmin",
+        "kind": 6,
+        "importPath": "books.admin",
+        "description": "books.admin",
+        "peekOfCode": "class BooksAdmin(admin.ModelAdmin):\n    fields_list = [\"title\", \"author\", \"published_date\", \"isbn\", \"pages\"]",
+        "detail": "books.admin",
+        "documentation": {}
+    },
+    {
         "label": "BooksConfig",
         "kind": 6,
         "importPath": "books.apps",
@@ -520,7 +529,7 @@
         "kind": 6,
         "importPath": "books.views",
         "description": "books.views",
-        "peekOfCode": "class BooksViewSet(viewsets.ModelViewSet):\n    queryset = Books.objects.all()\n    serializer_class = BooksSerializer\n    def get_queryset(self):\n        autor = self.request.query_params.get(\"author\")\n        publish_date_after = self.request.query_params.get(\"publish_date\")\n        publish_date_before = self.request.query_params.get(\"publish_date\")\n        if autor:\n            queryset = Books.objects.filter(author=autor)\n        elif publish_date_after:",
+        "peekOfCode": "class BooksViewSet(viewsets.ModelViewSet):\n    queryset = Books.objects.all()\n    serializer_class = BooksSerializer\n    def get_queryset(self):\n        queryset = Books.objects.all()\n        autor = self.request.query_params.get(\"author\")\n        publish_date_after = self.request.query_params.get(\"publish_date_after\")\n        publish_date_before = self.request.query_params.get(\"publish_date_before\")\n        if autor:\n            queryset = queryset.filter(author=autor)",
         "detail": "books.views",
         "documentation": {}
     },

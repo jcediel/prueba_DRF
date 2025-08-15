@@ -31,7 +31,7 @@ class BooksSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("El ISBN ya existe")
         return value
 
-    def pages(self, value):
+    def validate_pages(self, value):
         if value < 0:
             raise serializers.ValidationError("Las paginas no pueden ser negativas")
         return value

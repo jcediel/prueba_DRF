@@ -10,15 +10,18 @@ class BooksViewSet(viewsets.ModelViewSet):
     serializer_class = BooksSerializer
 
     def get_queryset(self):
+        queryset = Books.objects.all()
         autor = self.request.query_params.get("author")
-        publish_date_after = self.request.query_params.get("publish_date")
-        publish_date_before = self.request.query_params.get("publish_date")
+        publish_date_after = self.request.query_params.get("publish_date_after")
+        publish_date_before = self.request.query_params.get("publish_date_before")
         if autor:
-            queryset = Books.objects.filter(author=autor)
-        elif publish_date_after:
-            queryset = Books.objects.filter(published_date__lt=publish_date_after)
-        elif publish_date_before:
-            queryset = Books.objects.filter(published_date__gt=publish_date_before)
-        else:
-            queryset = Books.objects.all()
+            queryset = queryset.filter(author=autor)
+        if publish_date_after:
+            queryset = queryset.filter(published_date__gt=publish_date_after)
+            # queryset = Books.objects.filter(published_date__gt=publish_date_after)
+        if publish_date_before:
+            queryset = queryset.filter(published_date__lt=publish_date_after)
+
+            # queryset = Books.objects.filter(published_date__lt=publish_date_before)
+
         return queryset
