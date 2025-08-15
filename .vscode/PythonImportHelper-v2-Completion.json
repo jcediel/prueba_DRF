@@ -421,14 +421,6 @@
         "documentation": {}
     },
     {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
         "label": "action",
         "importPath": "rest_framework.decorators",
         "description": "rest_framework.decorators",
@@ -807,7 +799,7 @@
         "kind": 6,
         "importPath": "prestamos.permissions",
         "description": "prestamos.permissions",
-        "peekOfCode": "class IsStaffOrBasic(permissions.BasePermission):\n    \"\"\"\n    Permite a staff ver y manipular todo, y a usuarios basic solo sus propios préstamos.\n    \"\"\"\n    def has_object_permission(self, request, view, obj):\n        if request.user.role == \"staff\":\n            return True\n        return obj.member == request.user\nclass IsStaffOrSelfbasic(permissions.BasePermission):\n    def has_object_permission(self, request, view, obj):",
+        "peekOfCode": "class IsStaffOrBasic(permissions.BasePermission):\n    def has_object_permission(self, request, view, obj):\n        if request.user.role == \"staff\":\n            return True\n        return obj.member == request.user\nclass IsStaffOrSelfbasic(permissions.BasePermission):\n    def has_object_permission(self, request, view, obj):\n        if request.user.role == \"staff\":\n            return True\n        return obj.id == request.user.id",
         "detail": "prestamos.permissions",
         "documentation": {}
     },
@@ -924,7 +916,7 @@
         "kind": 6,
         "importPath": "prestamos.views",
         "description": "prestamos.views",
-        "peekOfCode": "class PenaltyViewSet(viewsets.ModelViewSet):\n    queryset = Penalty.objects.all().select_related(\"loan\", \"loan__member\", \"loan_book\")\n    serializer_class = PenaltySerializer\n    permission_classes = [IsAuthenticated, IsStaffOrBasic]\n    @action(detail=True, methods=[\"post\"])\n    def pay(self, request, pk=None):\n        penalty = self.get_object()\n        serializer = PaymentSeralizer(\n            data=penalty,\n        )",
+        "peekOfCode": "class PenaltyViewSet(viewsets.ModelViewSet):\n    queryset = Penalty.objects.all().select_related(\n        \"loan\", \"loan__member\", \"loan__book\"\n    )\n    serializer_class = PenaltySerializer\n    permission_classes = [IsAuthenticated, IsStaffOrBasic]\n    @action(detail=True, methods=[\"post\"])\n    def pay(self, request, pk=None):\n        penalty = self.get_object()\n        serializer = PaymentSeralizer(",
         "detail": "prestamos.views",
         "documentation": {}
     },

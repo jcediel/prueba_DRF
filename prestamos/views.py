@@ -1,6 +1,5 @@
 from datetime import datetime
 from rest_framework.response import Response
-from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from prestamos.permissions import IsStaffOrBasic, IsStaffOrSelfbasic
@@ -96,7 +95,9 @@ class ReservationViewSet(viewsets.ModelViewSet):
 
 
 class PenaltyViewSet(viewsets.ModelViewSet):
-    queryset = Penalty.objects.all().select_related("loan", "loan__member", "loan_book")
+    queryset = Penalty.objects.all().select_related(
+        "loan", "loan__member", "loan__book"
+    )
     serializer_class = PenaltySerializer
     permission_classes = [IsAuthenticated, IsStaffOrBasic]
 
